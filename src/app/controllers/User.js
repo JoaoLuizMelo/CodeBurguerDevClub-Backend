@@ -9,7 +9,9 @@ class User extends Model {
         password_hash: Sequelize.STRING,
         admin: Sequelize.BOOLEAN,
       },
-      {},
+      { sequelize },
     )
   }
 }
+
+export default User
