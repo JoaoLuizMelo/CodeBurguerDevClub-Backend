@@ -12,7 +12,7 @@ class UserControler {
       password_hash,
       admin,
     })
-    return response.json(user)
+    return response.status(201).json({ id: user.id, name, email, admin })
   }
 }
 export default new UserControler()
