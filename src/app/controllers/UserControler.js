@@ -1,8 +1,17 @@
 import { v4 } from 'uuid'
+import * as Yup from 'yup'
 import User from '../models/User'
 
 class UserControler {
   async store(request, response) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string().email().required(),
+      password_hash: Yup.string().required().min(6),
+      admin: Yup.boolean(),
+    })
+
+    await schema.isValid(request.body)
     const { name, email, password_hash, admin } = request.body
 
     const user = await User.create({
