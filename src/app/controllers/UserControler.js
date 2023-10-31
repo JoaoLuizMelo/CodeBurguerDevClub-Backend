@@ -11,8 +11,15 @@ class UserControler {
       admin: Yup.boolean(),
     })
 
-    await schema.isValid(request.body)
+    /* await schema.isValid(request.body)
     const { name, email, password_hash, admin } = request.body
+    */
+
+    try {
+      await schema.validateSync(request.body, { abortEarly: false })
+    } catch (err) {
+      return response.status(400).json({ error: err.errors })
+    }
 
     const user = await User.create({
       id: v4(),
